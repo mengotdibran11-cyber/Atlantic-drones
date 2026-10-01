@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlantic Drones — Professional Aerial Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/app.css">
+<style>
+  :root{
+    --navy: #0B1F33;
+    --navy-deep: #071522;
+    --fog: #F4F6F7;
+    --steel: #7C8B99;
+    --steel-dark: #4A5A68;
+    --signal: #D6493F;
+    --chrome: #C9D1D9;
+    --white: #FFFFFF;
+    --line: rgba(201,209,217,0.18);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--fog);
+    color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  img{ display:block; max-width:100%; }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky; top:0; z-index:100;
+    background:var(--navy);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1280px; margin:0 auto; padding:0 32px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:20px; color:var(--white);
+    letter-spacing:0.02em;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .mark{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 0 3px rgba(214,73,63,0.25);
+  }
+  .nav-links{
+    display:flex; gap:36px; list-style:none;
+  }
+  .nav-links a{
+    color:var(--chrome); font-size:14px; font-weight:500;
+    letter-spacing:0.02em;
+    position:relative; padding:4px 0;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{ color:var(--white); }
+  .nav-cta{
+    background:var(--signal); color:var(--white);
+    font-size:13px; font-weight:600; letter-spacing:0.03em;
+    padding:11px 20px; border-radius:2px;
+    border:1px solid var(--signal);
+    transition:background .2s ease, color .2s ease;
+  }
+  .nav-cta:hover{ background:transparent; color:var(--signal); }
+  .nav-toggle{ display:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    background:radial-gradient(ellipse at 20% 0%, #10283F 0%, var(--navy) 55%, var(--navy-deep) 100%);
+    color:var(--white);
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hud-bar{
+    max-width:1280px; margin:0 auto; padding:16px 32px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-size:12px; color:var(--steel);
+    border-bottom:1px solid var(--line);
+    letter-spacing:0.03em;
+  }
+  .hud-bar span b{ color:var(--chrome); font-weight:500; }
+
+  .hero-grid{
+    max-width:1280px; margin:0 auto; padding:64px 32px 0;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--signal);
+    letter-spacing:0.12em; text-transform:uppercase;
+    margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:''; width:24px; height:1px; background:var(--signal);
+  }
+  .hero h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(38px, 4.6vw, 62px);
+    font-weight:700;
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    margin-bottom:24px;
+  }
+  .hero h1 em{
+    font-style:normal; color:var(--chrome);
+  }
+  .hero p.lede{
+    font-size:17px; line-height:1.65; color:var(--steel);
+    max-width:460px; margin-bottom:36px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--white); color:var(--navy-deep);
+    padding:15px 26px; font-size:14px; font-weight:600;
+    border-radius:2px; letter-spacing:0.02em;
+    transition:transform .2s ease, background .2s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ background:var(--chrome); transform:translateY(-1px); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--white);
+    padding:15px 26px; font-size:14px; font-weight:500;
+    border-radius:2px; letter-spacing:0.02em;
+    transition:border-color .2s ease, background .2s ease;
+    display:inline-block;
+  }
+  .btn-ghost:hover{ border-color:var(--chrome); background:rgba(255,255,255,0.04); }
+
+  .hero-visual{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    padding:20px 0 60px;
+  }
+  .hud-ring{
+    position:absolute;
+    width:420px; height:420px;
+    border:1px solid var(--line);
+    border-radius:50%;
+  }
+  .hud-ring.inner{
+    width:320px; height:320px;
+    border-style:dashed;
+    border-color:rgba(201,209,217,0.14);
+  }
+  .hud-cross{
+    position:absolute; width:420px; height:420px;
+  }
+  .hud-cross::before, .hud-cross::after{
+    content:''; position:absolute; background:rgba(201,209,217,0.14);
+  }
+  .hud-cross::before{ top:50%; left:0; width:100%; height:1px; }
+  .hud-cross::after{ top:0; left:50%; width:1px; height:100%; }
+  .hero-visual img{
+    width:340px; position:relative; z-index:2;
+    filter:drop-shadow(0 30px 60px rgba(0,0,0,0.45));
+  }
+  .hud-tag{
+    position:absolute; font-family:'IBM Plex Mono', monospace;
+    font-size:11px; color:var(--chrome);
+    background:rgba(7,21,34,0.7);
+    border:1px solid var(--line);
+    padding:5px 9px; border-radius:2px;
+    z-index:3; white-space:nowrap;
+  }
+  .hud-tag.tl{ top:8%; left:2%; }
+  .hud-tag.br{ bottom:6%; right:0%; }
+  .hud-tag .dot{
+    width:5px; height:5px; border-radius:50%; background:var(--signal);
+    display:inline-block; margin-right:6px;
+  }
+
+  /* ============ TICKER / TRUST STRIP ============ */
+  .trust{
+    background:var(--navy-deep);
+    border-bottom:1px solid var(--line);
+  }
+  .trust-inner{
+    max-width:1280px; margin:0 auto; padding:18px 32px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:18px;
+  }
+  .trust-item{
+    display:flex; align-items:center; gap:10px;
+    color:var(--chrome); font-size:13px;
+  }
+  .trust-item .num{
+    font-family:'Space Grotesk', sans-serif; font-weight:700;
+    color:var(--white); font-size:15px;
+  }
+
+  /* ============ SECTION SHELL ============ */
+  section{ padding:96px 32px; }
+  .wrap{ max-width:1280px; margin:0 auto; }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:52px; gap:24px; flex-wrap:wrap;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--signal); letter-spacing:0.12em; text-transform:uppercase;
+    margin-bottom:14px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:24px; height:1px; background:var(--signal); }
+  h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:clamp(28px, 3vw, 38px);
+    font-weight:700; color:var(--navy); letter-spacing:-0.01em;
+    max-width:560px;
+  }
+  .section-note{
+    font-size:15px; color:var(--steel-dark); max-width:340px; line-height:1.6;
+  }
+
+  /* ============ FLEET GRID ============ */
+  .fleet-grid{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .fleet-card{
+    background:var(--white);
+    padding:28px 24px 26px;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+  .fleet-card .imgwrap{
+    position:relative;
+    background:linear-gradient(180deg, #FBFCFC 0%, #EFF2F3 100%);
+    border-radius:3px;
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:22px;
+    overflow:hidden;
+  }
+  .fleet-card .imgwrap img{ width:78%; transition:transform .35s ease; }
+  .fleet-card:hover .imgwrap img{ transform:scale(1.05); }
+  .fleet-card .imgwrap .coord{
+    position:absolute; top:10px; left:10px;
+    font-family:'IBM Plex Mono', monospace; font-size:10px;
+    color:var(--steel);
+  }
+  .fleet-card .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    color:var(--signal); letter-spacing:0.06em; text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .fleet-card h3{
+    font-family:'Space Grotesk', sans-serif; font-size:19px; font-weight:600;
+    margin-bottom:10px; color:var(--navy);
+  }
+  .fleet-card p{
+    font-size:13.5px; color:var(--steel-dark); line-height:1.55;
+    margin-bottom:20px; flex-grow:1;
+  }
+  .fleet-card .meta{
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid #EBEDEE; padding-top:16px;
+  }
+  .fleet-card .price{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:16px;
+  }
+  .fleet-card .price span{ font-size:11px; color:var(--steel); font-weight:400; font-family:'Inter'; display:block; }
+  .fleet-card .view{
+    font-size:12px; font-weight:600; color:var(--navy);
+    border-bottom:1px solid var(--navy); padding-bottom:2px;
+  }
+
+  /* ============ FEATURE / SPEC SPLIT ============ */
+  .feature{
+    background:var(--navy);
+    color:var(--white);
+  }
+  .feature .wrap{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:center;
+  }
+  .feature-visual{
+    background:linear-gradient(160deg, #12283F 0%, #0B1F33 100%);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:48px;
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .feature-visual img{ width:85%; }
+  .feature-visual .scan{
+    position:absolute; inset:16px;
+    border:1px dashed rgba(201,209,217,0.2);
+    border-radius:3px;
+  }
+  .feature-visual .readout{
+    position:absolute; bottom:20px; left:20px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px;
+    color:var(--chrome);
+  }
+  .feature-visual .readout .l{ color:var(--steel); }
+  .feature-copy .eyebrow{ margin-bottom:16px; }
+  .feature-copy h2{ color:var(--white); margin-bottom:20px; }
+  .feature-copy p.lede{ color:var(--steel); font-size:16px; line-height:1.7; margin-bottom:36px; max-width:480px; }
+  .spec-list{ display:grid; grid-template-columns:1fr 1fr; gap:24px 32px; }
+  .spec-item{ border-top:1px solid var(--line); padding-top:14px; }
+  .spec-item .k{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--signal); letter-spacing:0.05em; text-transform:uppercase; margin-bottom:6px; }
+  .spec-item .v{ font-size:14.5px; color:var(--chrome); line-height:1.5; }
+
+  /* ============ ACCESSORIES ============ */
+  .access-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:24px;
+  }
+  .access-card{
+    background:var(--white); border:1px solid var(--line);
+    display:grid; grid-template-columns:220px 1fr;
+    align-items:center;
+  }
+  .access-card .imgwrap{
+    background:linear-gradient(180deg, #FBFCFC 0%, #EFF2F3 100%);
+    aspect-ratio:1/1; display:flex; align-items:center; justify-content:center;
+  }
+  .access-card .imgwrap img{ width:60%; }
+  .access-card .copy{ padding:28px 30px; }
+  .access-card .tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--signal); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; }
+  .access-card h4{ font-family:'Space Grotesk', sans-serif; font-size:17px; font-weight:600; margin-bottom:8px; color:var(--navy); }
+  .access-card p{ font-size:13.5px; color:var(--steel-dark); line-height:1.55; margin-bottom:14px; }
+  .access-card .price{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px; }
+
+  /* ============ SERVICES ============ */
+  .services{ background:#EEF1F2; }
+  .service-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .service-card{ background:var(--fog); padding:36px 30px; }
+  .service-card .idx{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--signal); margin-bottom:20px; }
+  .service-card h4{ font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:600; margin-bottom:12px; }
+  .service-card p{ font-size:13.5px; color:var(--steel-dark); line-height:1.6; margin-bottom:18px; }
+  .service-card a{ font-size:12.5px; font-weight:600; color:var(--navy); border-bottom:1px solid var(--navy); padding-bottom:2px; }
+
+  /* ============ CONTACT / CTA ============ */
+  .contact{ background:var(--navy-deep); color:var(--white); }
+  .contact .wrap{ display:grid; grid-template-columns:1fr 1fr; gap:64px; }
+  .contact h2{ color:var(--white); margin-bottom:18px; }
+  .contact p.lede{ color:var(--steel); font-size:15.5px; line-height:1.7; max-width:420px; margin-bottom:32px; }
+  .contact-coords{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--chrome); line-height:2; }
+  .form{ background:var(--navy); border:1px solid var(--line); padding:36px; border-radius:4px; }
+  .form-row{ margin-bottom:20px; }
+  .form-row label{ display:block; font-size:12px; color:var(--steel); margin-bottom:8px; letter-spacing:0.03em; text-transform:uppercase; font-family:'IBM Plex Mono', monospace; }
+  .form-row input, .form-row select, .form-row textarea{
+    width:100%; background:var(--navy-deep); border:1px solid var(--line);
+    color:var(--white); padding:12px 14px; font-size:14px; border-radius:2px;
+    font-family:'Inter', sans-serif;
+  }
+  .form-row textarea{ resize:vertical; min-height:80px; }
+  .form-submit{
+    width:100%; background:var(--signal); color:var(--white); border:none;
+    padding:15px; font-size:14px; font-weight:600; letter-spacing:0.02em;
+    border-radius:2px; cursor:pointer; transition:background .2s ease;
+  }
+  .form-submit:hover{ background:#BE3A31; }
+
+  /* ============ FOOTER ============ */
+  footer{ background:var(--navy-deep); border-top:1px solid var(--line); color:var(--steel); }
+  .footer-inner{
+    max-width:1280px; margin:0 auto; padding:56px 32px 32px;
+  }
+  .footer-top{ display:grid; grid-template-columns:1.4fr repeat(3, 1fr); gap:40px; margin-bottom:48px; }
+  .footer-logo{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:19px; color:var(--white); margin-bottom:14px; }
+  .footer-top p{ font-size:13.5px; line-height:1.6; max-width:280px; }
+  .footer-col h5{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chrome); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px; }
+  .footer-col ul{ list-style:none; display:flex; flex-direction:column; gap:11px; }
+  .footer-col a{ font-size:13.5px; transition:color .2s ease; }
+  .footer-col a:hover{ color:var(--white); }
+  .footer-bottom{
+    border-top:1px solid var(--line); padding-top:24px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:12.5px;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns:1fr; padding-top:48px; }
+    .hero-visual{ order:-1; padding-bottom:30px; }
+    .feature .wrap{ grid-template-columns:1fr; }
+    .fleet-grid{ grid-template-columns:repeat(2,1fr); }
+    .access-grid{ grid-template-columns:1fr; }
+    .service-grid{ grid-template-columns:1fr; }
+    .contact .wrap{ grid-template-columns:1fr; }
+    .footer-top{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width: 720px){
+    .nav-links{ display:none; }
+    .fleet-grid{ grid-template-columns:1fr; }
+    .access-card{ grid-template-columns:1fr; }
+    .spec-list{ grid-template-columns:1fr; }
+    .footer-top{ grid-template-columns:1fr; }
+    section{ padding:64px 20px; }
+    .hud-bar{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--signal); outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="mark"></span>ATLANTIC DRONES</a>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"><span></span></button>
+    <ul class="nav-links">
+      <li><a href="#fleet">Fleet</a></li>
+      <li><a href="#imaging">Imaging Systems</a></li>
+      <li><a href="#power">Power &amp; Accessories</a></li>
+      <li><a href="#services">Enterprise</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button id="theme-toggle" class="nav-icon-btn" title="Toggle dark mode">☾</button>
+      <button id="compare-toggle" class="nav-icon-btn" title="Compare products">⇄<span class="compare-count count-badge">0</span></button>
+      <button id="wishlist-toggle" class="nav-icon-btn" title="Wishlist">♥<span class="wishlist-count count-badge">0</span></button>
+      <button id="cart-toggle" class="nav-icon-btn" title="Cart">🛒<span class="cart-count count-badge">0</span></button>
+    </div>
+    <a href="#contact" class="nav-cta">Request a Quote</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hud-bar mono">
+    <span>44.6488° N, 63.5752° W <b>· HALIFAX HQ</b></span>
+    <span>STATUS <b style="color:#7FBF7F">ONLINE</b></span>
+    <span>NEXT DISPATCH <b>WINDOW 09:00–17:00 AST</b></span>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <div class="hero-eyebrow">Canadian Drone Retailer &amp; Flight Services</div>
+      <h1>Aerial hardware built to hold a line <em>in coastal wind.</em></h1>
+      <p class="lede">Atlantic Drones outfits pilots, surveyors, and enterprise crews from Halifax to the Great Lakes with flight-tested aircraft, imaging payloads, and the support to keep them airborne.</p>
+      <div class="hero-actions">
+        <a href="#fleet" class="btn-primary">Browse the Fleet</a>
+        <a href="#contact" class="btn-ghost">Talk to a Specialist</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hud-ring"></div>
+      <div class="hud-ring inner"></div>
+      <div class="hud-cross"></div>
+      <div class="hud-tag tl mono"><span class="dot"></span>ALT 118m</div>
+      <div class="hud-tag br mono">HDG 034° · LOCK</div>
+      <img src="images/drone_3.png" alt="Quadcopter drone with gimbal-mounted camera, viewed head-on">
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="num" data-count-to="11" data-count-suffix=" yrs">0 yrs</span> in commercial &amp; retail flight</div>
+    <div class="trust-item"><span class="num">Free</span> shipping across Canada</div>
+    <div class="trust-item"><span class="num">Certified</span> in-house repair bench</div>
+    <div class="trust-item"><span class="num">TC</span> compliant flight planning support</div>
+  </div>
+</div>
+
+<section id="fleet">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">The Fleet</div>
+        <h2>Four airframes, one standard of readiness</h2>
+      </div>
+      <p class="section-note">Every unit ships pre-flight checked, calibrated, and paired with a starter accessory kit.</p>
+    </div>
+    <div class="search-wrap">
+      <div class="search-controls">
+        <input type="text" id="product-search" placeholder="Search the fleet & accessories…" autocomplete="off">
+        <select id="category-filter">
+          <option value="">All categories</option>
+          <option value="Drones">Drones</option>
+          <option value="Batteries">Batteries</option>
+        </select>
+        <select id="price-filter">
+          <option value="">Any price</option>
+          <option value="500">Under $500</option>
+          <option value="2000">Under $2,000</option>
+          <option value="10000">Under $10,000</option>
+          <option value="20000">Under $20,000</option>
+        </select>
+      </div>
+      <div id="search-suggestions" class="search-suggestions" hidden></div>
+    </div>
+    <div class="fleet-grid">
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="649" data-name="phantom vision class">
+        <div class="imgwrap">
+          <span class="coord mono">01 / RECON</span>
+          <img src="images/drone_1.png" alt="Compact quadcopter drone with red rotor markings and gimbal camera" data-lightbox="images/drone_1.png">
+        </div>
+        <div class="tag">Entry Recon</div>
+        <h3>Phantom Vision Class</h3>
+        <p>The workhorse for first-time operators — stabilized gimbal, live downlink, and a flight envelope that forgives.</p>
+        <div class="meta">
+          <div class="price">$649 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="1">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="1" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="1" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="1" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="5999" data-name="phantom 4 multispectral">
+        <div class="imgwrap">
+          <span class="coord mono">02 / IMAGING</span>
+          <img src="images/drone_2.png" alt="Drone with multispectral camera array for agricultural imaging" data-lightbox="images/drone_2.png">
+        </div>
+        <div class="tag">Multispectral</div>
+        <h3>Phantom 4 Multispectral</h3>
+        <p>A six-sensor imaging array built for crop health, NDVI mapping, and environmental survey work.</p>
+        <div class="meta">
+          <div class="price">$5,999 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="2">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="2" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="2" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="2" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="1799" data-name="phantom 4 pro">
+        <div class="imgwrap">
+          <span class="coord mono">03 / STANDARD</span>
+          <img src="images/drone_6.png" alt="Drone viewed from above showing four folded rotor arms" data-lightbox="images/drone_6.png">
+        </div>
+        <div class="tag">Pro Series</div>
+        <h3>Phantom 4 Pro</h3>
+        <p>Our best-selling airframe. A 1-inch sensor, obstacle sensing on four sides, and 30 minutes of hold time.</p>
+        <div class="meta">
+          <div class="price">$1,799 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="3">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="3" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="3" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="3" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="8499" data-name="phantom 4 rtk">
+        <div class="imgwrap">
+          <span class="coord mono">04 / ENTERPRISE</span>
+          <img src="images/drone_3.png" alt="Enterprise-grade drone front view with reinforced landing gear" data-lightbox="images/drone_3.png">
+        </div>
+        <div class="tag">RTK / Survey</div>
+        <h3>Phantom 4 RTK</h3>
+        <p>Centimetre-level positioning for mapping crews who can't afford drift between flight lines.</p>
+        <div class="meta">
+          <div class="price">$8,499 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="4">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="4" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="4" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="4" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="14999" data-name="matrice industrial series">
+        <div class="imgwrap">
+          <span class="coord mono">05 / ENTERPRISE</span>
+          <img src="images/drone_9.jpg" alt="Black industrial drone with carbon-fiber arms and extended landing legs" data-lightbox="images/drone_9.jpg">
+        </div>
+        <div class="tag">Enterprise</div>
+        <h3>Matrice Industrial Series</h3>
+        <p>Heavy-lift industrial airframe for inspection and mapping crews operating beyond visual line of sight.</p>
+        <div class="meta">
+          <div class="price">$14,999 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="5">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="5" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="5" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="5" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="12499" data-name="agrispray field platform">
+        <div class="imgwrap">
+          <span class="coord mono">06 / AGRICULTURE</span>
+          <img src="images/drone_11.jpg" alt="Gray agricultural drone with spray tank and four-arm frame" data-lightbox="images/drone_11.jpg">
+        </div>
+        <div class="tag">Agriculture</div>
+        <h3>AgriSpray Field Platform</h3>
+        <p>Agricultural spraying and mapping octocopter for large-acreage operations.</p>
+        <div class="meta">
+          <div class="price">$12,499 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="6">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="6" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="6" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="6" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="2399" data-name="aero x advanced">
+        <div class="imgwrap">
+          <span class="coord mono">07 / PRO</span>
+          <img src="images/drone_7.jpg" alt="Gray folding drone with dual-lens gimbal camera" data-lightbox="images/drone_7.jpg">
+        </div>
+        <div class="tag">Pro Series</div>
+        <h3>Aero X Advanced</h3>
+        <p>Compact folding airframe with dual-lens gimbal and extended transmission range.</p>
+        <div class="meta">
+          <div class="price">$2,399 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="7">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="7" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="7" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="7" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="219" data-name="compact fold duo">
+        <div class="imgwrap">
+          <span class="coord mono">08 / RECON</span>
+          <img src="images/drone_10.jpg" alt="Two compact folding drones shown side by side" data-lightbox="images/drone_10.jpg">
+        </div>
+        <div class="tag">Entry Recon</div>
+        <h3>Compact Fold Duo</h3>
+        <p>Budget-friendly folding quadcopter, sold as a two-unit training pack.</p>
+        <div class="meta">
+          <div class="price">$219 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="8">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="8" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="8" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="8" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="4299" data-name="aero duo field kit">
+        <div class="imgwrap">
+          <span class="coord mono">09 / BUNDLE</span>
+          <img src="images/drone_8.jpg" alt="Two matched folding drones with dual-lens gimbals, stacked for comparison" data-lightbox="images/drone_8.jpg">
+        </div>
+        <div class="tag">Fleet Bundle</div>
+        <h3>Aero Duo Field Kit</h3>
+        <p>Two matched Aero-class folding airframes in one case — for crews running parallel missions or hot-swap redundancy.</p>
+        <div class="meta">
+          <div class="price">$4,299 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="16">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="16" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="16" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="16" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+      <div class="fleet-card" data-product-card data-category="Drones" data-price="2599" data-name="aero x night ops">
+        <div class="imgwrap">
+          <span class="coord mono">10 / PRO</span>
+          <img src="images/drone_12.jpg" alt="Gray folding drone in flight with green status lighting" data-lightbox="images/drone_12.jpg">
+        </div>
+        <div class="tag">Pro Series</div>
+        <h3>Aero X Night Ops</h3>
+        <p>The Aero X platform with illuminated arm markers for low-light and dusk operations.</p>
+        <div class="meta">
+          <div class="price">$2,599 <span>starting</span></div>
+          <a href="#" class="view" data-quickview="17">View specs →</a>
+        </div>
+        <div class="card-actions">
+          <button class="icon-btn" data-wishlist-toggle="17" title="Save to wishlist">♥</button>
+          <button class="icon-btn" data-compare-toggle="17" title="Add to comparison">⇄</button>
+          <button class="icon-btn icon-btn-primary" data-add-to-cart="17" title="Add to cart">＋</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="recently-viewed" style="display:none;">
+  <div class="wrap">
+    <h2>Recently Viewed</h2>
+    <div id="recently-viewed-list" class="rv-grid"></div>
+  </div>
+</section>
+
+<section class="feature" id="imaging">
+  <div class="wrap">
+    <div class="feature-visual">
+      <div class="scan"></div>
+      <img src="images/drone_2.png" alt="Close view of multispectral camera sensor array mounted under a drone">
+      <div class="readout mono"><span class="l">SENSOR ARRAY</span><br>6× NARROW-BAND / RGB</div>
+    </div>
+    <div class="feature-copy">
+      <div class="eyebrow">Payload Spotlight</div>
+      <h2>See what the naked eye can't — from 400 feet up.</h2>
+      <p class="lede">The Multispectral platform pairs an RGB camera with five narrow-band sensors, giving agronomists and land managers a direct read on plant stress days before it's visible on the ground.</p>
+      <div class="spec-list">
+        <div class="spec-item">
+          <div class="k">Flight Time</div>
+          <div class="v">27 min per battery</div>
+        </div>
+        <div class="spec-item">
+          <div class="k">Positioning</div>
+          <div class="v">RTK module, sub-5cm accuracy</div>
+        </div>
+        <div class="spec-item">
+          <div class="k">Sensor Suite</div>
+          <div class="v">RGB + Green / Red / Red Edge / NIR</div>
+        </div>
+        <div class="spec-item">
+          <div class="k">Ideal For</div>
+          <div class="v">Crop health, forestry, shoreline survey</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="power">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Power &amp; Accessories</div>
+        <h2>Flight batteries built for a full day on site</h2>
+      </div>
+      <p class="section-note">Genuine intelligent flight batteries with cell balancing and self-discharge protection.</p>
+    </div>
+    <div class="access-grid">
+      <div class="access-card" data-product-card data-category="Batteries" data-price="179" data-name="intelligent flight battery">
+        <div class="imgwrap"><img src="images/drone_4.png" alt="White intelligent flight battery" data-lightbox="images/drone_4.png"></div>
+        <div class="copy">
+          <div class="tag">Standard Cell</div>
+          <h4>Intelligent Flight Battery</h4>
+          <p>LED charge readout, auto-discharge past 10 days idle, and a 15-minute rapid top-up on the fast charger.</p>
+          <div class="price">$179</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="9" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="9" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="9" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="access-card" data-product-card data-category="Batteries" data-price="229" data-name="high-capacity flight battery">
+        <div class="imgwrap"><img src="images/drone_5.png" alt="High-capacity 5870mAh intelligent flight battery" data-lightbox="images/drone_5.png"></div>
+        <div class="copy">
+          <div class="tag">Extended Cell</div>
+          <h4>High-Capacity Flight Battery</h4>
+          <p>The extended pack for survey missions — more line coverage per sortie, same charge-cycle lifespan.</p>
+          <div class="price">$229</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="10" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="10" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="10" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="access-card" data-product-card data-category="Batteries" data-price="389" data-name="xingeto industrial 6s pack">
+        <div class="imgwrap"><img src="images/battery_xingeto_set.jpg" alt="Four industrial 6S drone batteries in different capacities, 16000 to 30000mAh" data-lightbox="images/battery_xingeto_set.jpg"></div>
+        <div class="copy">
+          <div class="tag">Industrial 6S</div>
+          <h4>Xingeto Industrial 6S Pack</h4>
+          <p>High-discharge 6S industrial pack family, from 16,000 to 30,000mAh, for heavy-lift industrial airframes.</p>
+          <div class="price">$389</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="11" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="11" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="11" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="access-card" data-product-card data-category="Batteries" data-price="1249" data-name="lipower solid-state 80000">
+        <div class="imgwrap"><img src="images/battery_lipower_80000.webp" alt="LiPower 80000mAh solid-state battery pack in black and yellow housing" data-lightbox="images/battery_lipower_80000.webp"></div>
+        <div class="copy">
+          <div class="tag">Solid-State</div>
+          <h4>LiPower Solid-State 80000</h4>
+          <p>Next-generation solid-state cell pack rated at 1776Wh for maximum-endurance heavy-lift missions.</p>
+          <div class="price">$1,249</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="12" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="12" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="12" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="access-card" data-product-card data-category="Batteries" data-price="459" data-name="herewin 22000 dual pack">
+        <div class="imgwrap"><img src="images/battery_herewin_22000.jpg" alt="Two Herewin 22000mAh smart batteries with balance leads" data-lightbox="images/battery_herewin_22000.jpg"></div>
+        <div class="copy">
+          <div class="tag">Smart Pack</div>
+          <h4>Herewin 22000 Dual Pack</h4>
+          <p>Matched dual-battery smart pack with balance leads, sold as a pair for redundant field operation.</p>
+          <div class="price">$459</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="13" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="13" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="13" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="access-card" data-product-card data-category="Batteries" data-price="89" data-name="heltec energy 5200 lipo">
+        <div class="imgwrap"><img src="images/battery_heltec_5200.jpg" alt="Heltec Energy 5200mAh 6S LiPo battery with XT connector" data-lightbox="images/battery_heltec_5200.jpg"></div>
+        <div class="copy">
+          <div class="tag">Racing / Compact</div>
+          <h4>Heltec Energy 5200 LiPo</h4>
+          <p>Lightweight 6S 5200mAh competition-grade pack for compact and racing airframes.</p>
+          <div class="price">$89</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="14" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="14" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="14" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="access-card" data-product-card data-category="Batteries" data-price="69" data-name="oro compact smart battery">
+        <div class="imgwrap"><img src="images/battery_oro.jpg" alt="Oro compact smart battery with USB-C charge port, angled view" data-lightbox="images/battery_oro.jpg"></div>
+        <div class="copy">
+          <div class="tag">Compact Smart</div>
+          <h4>Oro Compact Smart Battery</h4>
+          <p>Compact self-heating smart battery with USB-C charge port, built for consumer-class folding drones.</p>
+          <div class="price">$69</div>
+          <div class="card-actions">
+            <button class="icon-btn" data-wishlist-toggle="15" title="Save to wishlist">♥</button>
+            <button class="icon-btn" data-compare-toggle="15" title="Add to comparison">⇄</button>
+            <button class="icon-btn icon-btn-primary" data-add-to-cart="15" title="Add to cart">＋</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Enterprise &amp; Government</div>
+        <h2>Programs built around the mission, not the model number</h2>
+      </div>
+      <p class="section-note">Fleet procurement, mapping contracts, and training for teams operating under Transport Canada rules.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card">
+        <div class="idx mono">SVC.01</div>
+        <h4>Infrastructure Inspection</h4>
+        <p>Bridge, tower, and rooftop inspection packages with thermal and zoom payload options.</p>
+        <a href="#contact">Discuss a project →</a>
+      </div>
+      <div class="service-card">
+        <div class="idx mono">SVC.02</div>
+        <h4>Mapping &amp; Surveying</h4>
+        <p>RTK-equipped fleet procurement and photogrammetry workflow setup for survey teams.</p>
+        <a href="#contact">Discuss a project →</a>
+      </div>
+      <div class="service-card">
+        <div class="idx mono">SVC.03</div>
+        <h4>Pilot Training</h4>
+        <p>Transport Canada exam prep and hands-on flight training for Basic and Advanced operations.</p>
+        <a href="#contact">Discuss a project →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Frequently Asked</div>
+        <h2>Answers before you order</h2>
+      </div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Do you ship across Canada?</div>
+        <div class="faq-answer">Yes — free shipping across Canada on every airframe and accessory in the fleet, with tracked delivery on all orders.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I get a hands-on demo before buying enterprise units?</div>
+        <div class="faq-answer">Absolutely. Enterprise and fleet procurement enquiries include an on-site or in-store demo before you commit to an order.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What's covered under the in-house repair bench?</div>
+        <div class="faq-answer">Our certified technicians handle gimbal, motor, and sensor repairs for every airframe we sell, plus diagnostics on third-party units.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Do you offer financing for fleet orders?</div>
+        <div class="faq-answer">Enterprise and government fleet orders can be structured with staged payments — mention this in your enquiry and a specialist will follow up.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="wrap">
+    <div>
+      <h2>Stay in the loop</h2>
+      <p>New airframes, firmware notes, and flight-season tips — no spam, unsubscribe anytime.</p>
+    </div>
+    <form id="newsletter-form">
+      <input type="email" id="newsletter-email" placeholder="you@company.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-copy">
+      <div class="eyebrow">Get In Touch</div>
+      <h2>Tell us what you're trying to fly.</h2>
+      <p class="lede">Whether it's a first drone or a ten-unit fleet for a mapping contract, a specialist will get back to you within one business day.</p>
+      <div class="contact-coords">
+        HALIFAX, NS · ATLANTIC CANADA<br>
+        HOURS — MON–FRI 09:00–17:00 AST<br>
+        SALES@ATLANTICDRONES.CA
+      </div>
+    </div>
+    <form class="form">
+      <div class="form-row">
+        <label>Full Name</label>
+        <input type="text" placeholder="Jordan MacKenzie">
+      </div>
+      <div class="form-row">
+        <label>Email</label>
+        <input type="email" placeholder="jordan@company.com">
+      </div>
+      <div class="form-row">
+        <label>Interested In</label>
+        <select>
+          <option>Retail purchase</option>
+          <option>Enterprise / fleet procurement</option>
+          <option>Repair service</option>
+          <option>Pilot training</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Message</label>
+        <textarea placeholder="Tell us about your project or the unit you're after..."></textarea>
+      </div>
+      <button type="button" class="form-submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">ATLANTIC DRONES</div>
+        <p>Canadian retailer and repair centre for professional and enterprise aerial systems, based in Halifax, NS.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="#fleet">Fleet</a></li>
+          <li><a href="#imaging">Imaging Systems</a></li>
+          <li><a href="#power">Batteries &amp; Parts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#services">Enterprise</a></li>
+          <li><a href="#">Repairs</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <ul>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Atlantic Drones. All rights reserved.</span>
+      <span>Portfolio concept site — not a live retailer.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== Cart Drawer ===================== -->
+<div class="drawer" id="cart-drawer">
+  <div class="drawer-head">
+    <h3>Your Cart</h3>
+    <button class="drawer-close" id="cart-close" aria-label="Close cart">×</button>
+  </div>
+  <div class="drawer-body" id="cart-items"></div>
+  <div class="drawer-foot">
+    <div class="drawer-total"><span>Estimated Total</span><span id="cart-total">$0.00</span></div>
+    <button class="form-submit" id="checkout-btn">Request Quote for Cart</button>
+  </div>
+</div>
+
+<!-- ===================== Wishlist Drawer ===================== -->
+<div class="drawer" id="wishlist-drawer">
+  <div class="drawer-head">
+    <h3>Wishlist</h3>
+    <button class="drawer-close" id="wishlist-close" aria-label="Close wishlist">×</button>
+  </div>
+  <div class="drawer-body" id="wishlist-items"></div>
+</div>
+
+<!-- ===================== Compare Modal ===================== -->
+<div class="modal" id="compare-modal">
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-panel">
+    <button class="modal-close" id="compare-close" data-close-modal aria-label="Close comparison">×</button>
+    <h3 style="font-family:'Space Grotesk',sans-serif; margin-bottom:20px;">Compare Products</h3>
+    <div id="compare-table-wrap" style="overflow-x:auto;"></div>
+  </div>
+</div>
+
+<!-- ===================== Quick View Modal ===================== -->
+<div class="modal" id="quickview-modal">
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-panel">
+    <button class="modal-close" data-close-modal aria-label="Close quick view">×</button>
+    <div class="qv-grid">
+      <img id="qv-image" src="" alt="">
+      <div>
+        <div id="qv-tag"></div>
+        <h3 id="qv-name"></h3>
+        <p id="qv-desc"></p>
+        <div id="qv-price"></div>
+        <div id="qv-specs"></div>
+        <div class="card-actions">
+          <button class="icon-btn" id="qv-wishlist" data-wishlist-toggle="">♥ Save</button>
+          <button class="icon-btn" id="qv-compare" data-compare-toggle="">⇄ Compare</button>
+          <button class="icon-btn icon-btn-primary" id="qv-add" data-add-to-cart="">＋ Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== Lightbox ===================== -->
+<div class="modal" id="lightbox">
+  <div class="modal-backdrop" data-close-modal></div>
+  <img id="lightbox-img" src="" alt="">
+  <button class="modal-close" data-close-modal aria-label="Close image" style="color:#fff;">×</button>
+</div>
+
+<!-- ===================== Back to Top ===================== -->
+<button id="back-to-top" aria-label="Back to top">↑</button>
+
+<script type="module" src="assets/js/main.js"></script>
+</body>
+</html>
