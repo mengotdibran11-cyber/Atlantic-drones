@@ -1,0 +1,222 @@
+/* ============================================================
+   assets/css/app.css
+   Styles for the new dynamic features (cart, wishlist, compare,
+   quick-view, lightbox, toasts, dark mode, search, FAQ, newsletter,
+   recently-viewed, back-to-top). The original design in index.html's
+   <style> block is untouched -- this file only adds new UI.
+   ============================================================ */
+
+/* ---------- Dark mode variables ---------- */
+:root[data-theme="dark"]{
+  --fog:#0E1620; --white:#132030; --navy:#EAF0F5; --steel-dark:#B7C3CC;
+  --line: rgba(201,209,217,0.14);
+}
+:root[data-theme="dark"] body{ background:var(--fog); color:var(--navy); }
+:root[data-theme="dark"] .fleet-card,
+:root[data-theme="dark"] .access-card,
+:root[data-theme="dark"] .service-card{ background:var(--white); color:var(--navy); }
+:root[data-theme="dark"] .services{ background:#0B131C; }
+:root[data-theme="dark"] .fleet-card h3,
+:root[data-theme="dark"] .access-card h4{ color:var(--navy); }
+
+/* ---------- Nav additions: hamburger, icons, search ---------- */
+.nav-toggle{
+  display:none; background:none; border:none; cursor:pointer;
+  width:34px; height:34px; position:relative; flex-shrink:0;
+}
+.nav-toggle span, .nav-toggle::before, .nav-toggle::after{
+  content:''; position:absolute; left:6px; right:6px; height:2px; background:var(--white);
+  transition:transform .2s ease, opacity .2s ease;
+}
+.nav-toggle::before{ top:11px; }
+.nav-toggle span{ top:17px; }
+.nav-toggle::after{ top:23px; }
+.nav-toggle.open::before{ transform:translateY(6px) rotate(45deg); }
+.nav-toggle.open::after{ transform:translateY(-6px) rotate(-45deg); }
+.nav-toggle.open span{ opacity:0; }
+
+.nav-links a.active-link{ color:var(--white); }
+.nav-links a.active-link::after{ content:''; position:absolute; left:0; right:0; bottom:-6px; height:2px; background:var(--signal); }
+
+.nav-icons{ display:flex; align-items:center; gap:14px; margin-left:8px; }
+.nav-icon-btn{
+  position:relative; background:none; border:none; color:var(--chrome); cursor:pointer;
+  font-size:17px; width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+  border-radius:4px; transition:background .2s ease, color .2s ease;
+}
+.nav-icon-btn:hover{ background:rgba(255,255,255,0.08); color:var(--white); }
+.nav-icon-btn.active{ color:var(--signal); }
+.count-badge{
+  position:absolute; top:-4px; right:-4px; background:var(--signal); color:var(--white);
+  font-size:10px; font-family:'IBM Plex Mono', monospace; min-width:16px; height:16px;
+  border-radius:8px; display:none; align-items:center; justify-content:center; padding:0 3px;
+}
+
+/* ---------- Search bar ---------- */
+.search-wrap{ position:relative; max-width:420px; margin:0 0 32px; }
+.search-controls{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+#product-search{
+  width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:2px;
+  font-size:14px; font-family:'Inter', sans-serif; background:var(--white); color:var(--navy);
+}
+#category-filter, #price-filter{
+  padding:10px 12px; border:1px solid var(--line); border-radius:2px; font-size:13px;
+  background:var(--white); color:var(--navy); font-family:'Inter', sans-serif;
+}
+.search-suggestions{
+  position:absolute; top:calc(100% + 6px); left:0; right:0; background:var(--white);
+  border:1px solid var(--line); border-radius:4px; box-shadow:0 12px 32px rgba(0,0,0,0.12);
+  z-index:50; max-height:320px; overflow-y:auto;
+}
+.suggestion-item{ display:flex; align-items:center; gap:10px; padding:9px 12px; font-size:13.5px; color:var(--navy); }
+.suggestion-item:hover{ background:var(--fog); }
+.suggestion-item img{ width:32px; height:32px; object-fit:contain; }
+.suggestion-empty{ padding:12px; font-size:13px; color:var(--steel); }
+
+/* ---------- Card action icons (added to product cards) ---------- */
+.card-actions{ display:flex; gap:8px; margin-top:14px; }
+.icon-btn{
+  flex:1; border:1px solid var(--line); background:var(--white); color:var(--navy);
+  padding:9px 0; border-radius:2px; cursor:pointer; font-size:14px; transition:all .2s ease;
+}
+.icon-btn:hover{ border-color:var(--navy); }
+.icon-btn.active{ background:var(--signal); border-color:var(--signal); color:var(--white); }
+.icon-btn-primary{ background:var(--navy); color:var(--white); border-color:var(--navy); }
+.icon-btn-primary:hover{ background:var(--signal); border-color:var(--signal); }
+
+/* ---------- Drawers (cart / wishlist) ---------- */
+.drawer{
+  position:fixed; top:0; right:0; height:100vh; width:380px; max-width:92vw;
+  background:var(--white); color:var(--navy); z-index:300; box-shadow:-12px 0 40px rgba(0,0,0,0.18);
+  transform:translateX(100%); transition:transform .3s ease; display:flex; flex-direction:column;
+}
+.drawer.open{ transform:translateX(0); }
+.drawer-head{ display:flex; justify-content:space-between; align-items:center; padding:22px 24px; border-bottom:1px solid var(--line); }
+.drawer-head h3{ font-family:'Space Grotesk', sans-serif; font-size:17px; }
+.drawer-close{ background:none; border:none; font-size:22px; cursor:pointer; color:var(--steel-dark); }
+.drawer-body{ flex:1; overflow-y:auto; padding:16px 24px; }
+.drawer-foot{ padding:20px 24px; border-top:1px solid var(--line); }
+.drawer-total{ display:flex; justify-content:space-between; font-weight:700; margin-bottom:14px; font-family:'Space Grotesk', sans-serif; }
+
+.cart-line{ display:flex; gap:12px; align-items:center; padding:14px 0; border-bottom:1px solid var(--line); }
+.cart-line img{ width:56px; height:56px; object-fit:contain; background:var(--fog); border-radius:4px; }
+.cart-line-body{ flex:1; }
+.cart-line-name{ font-size:13.5px; font-weight:600; margin-bottom:4px; }
+.cart-line-price{ font-size:13px; color:var(--steel-dark); }
+.qty-stepper{ display:flex; align-items:center; gap:10px; margin-top:6px; }
+.qty-stepper button{ width:22px; height:22px; border:1px solid var(--line); background:none; cursor:pointer; border-radius:2px; }
+.cart-line-remove{ background:none; border:none; font-size:18px; color:var(--steel); cursor:pointer; }
+.empty-state{ color:var(--steel); font-size:13.5px; padding:20px 0; }
+
+/* ---------- Modal (quick view / compare) ---------- */
+.modal{
+  position:fixed; inset:0; z-index:400; display:none; align-items:center; justify-content:center; padding:24px;
+}
+.modal.open{ display:flex; }
+.modal-backdrop{ position:absolute; inset:0; background:rgba(7,21,34,0.72); }
+.modal-panel{
+  position:relative; background:var(--white); color:var(--navy); border-radius:6px; max-width:760px; width:100%;
+  max-height:88vh; overflow-y:auto; padding:32px; z-index:1;
+}
+.modal-close{ position:absolute; top:16px; right:18px; background:none; border:none; font-size:22px; cursor:pointer; color:var(--steel-dark); }
+.qv-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:start; }
+.qv-grid img{ width:100%; background:var(--fog); border-radius:4px; padding:24px; }
+#qv-tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--signal); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px; }
+#qv-name{ font-family:'Space Grotesk', sans-serif; font-size:22px; margin-bottom:10px; }
+#qv-desc{ font-size:14px; color:var(--steel-dark); line-height:1.6; margin-bottom:18px; }
+#qv-price{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:19px; margin-bottom:18px; }
+#qv-specs{ display:grid; grid-template-columns:1fr 1fr; gap:14px 20px; margin-bottom:22px; }
+@media (max-width:640px){ .qv-grid{ grid-template-columns:1fr; } }
+
+/* ---------- Lightbox ---------- */
+#lightbox{ background:none; }
+#lightbox .modal-backdrop{ background:rgba(0,0,0,0.9); }
+#lightbox-img{ max-width:90vw; max-height:85vh; position:relative; z-index:1; border-radius:4px; }
+
+/* ---------- Compare table ---------- */
+.compare-table{ width:100%; border-collapse:collapse; }
+.compare-table th, .compare-table td{ border:1px solid var(--line); padding:12px; font-size:13px; text-align:left; }
+.compare-table th img{ width:60px; height:60px; object-fit:contain; display:block; margin-bottom:8px; }
+.compare-remove{ background:none; border:1px solid var(--line); font-size:11px; padding:3px 8px; border-radius:12px; cursor:pointer; margin-top:6px; }
+
+/* ---------- Toasts ---------- */
+#toast-container{ position:fixed; bottom:24px; right:24px; z-index:600; display:flex; flex-direction:column; gap:10px; }
+.toast{
+  background:var(--navy); color:var(--white); padding:13px 18px; border-radius:4px; font-size:13.5px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.25); opacity:0; transform:translateY(12px); transition:all .3s ease;
+  max-width:320px;
+}
+.toast.show{ opacity:1; transform:translateY(0); }
+.toast-success{ border-left:3px solid #4CAF7D; }
+.toast-error{ border-left:3px solid var(--signal); }
+.toast-info{ border-left:3px solid var(--chrome); }
+
+/* ---------- Spinner ---------- */
+#global-spinner{ position:fixed; inset:0; z-index:700; display:none; align-items:center; justify-content:center; background:rgba(7,21,34,0.35); }
+#global-spinner.visible{ display:flex; }
+.spinner-ring{ width:40px; height:40px; border:3px solid rgba(255,255,255,0.3); border-top-color:var(--white); border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* ---------- Back to top ---------- */
+#back-to-top{
+  position:fixed; bottom:24px; left:24px; width:42px; height:42px; border-radius:50%;
+  background:var(--navy); color:var(--white); border:none; cursor:pointer; font-size:16px;
+  opacity:0; pointer-events:none; transform:translateY(10px); transition:all .25s ease; z-index:200;
+}
+#back-to-top.visible{ opacity:1; pointer-events:auto; transform:translateY(0); }
+
+/* ---------- Scroll reveal ---------- */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.revealed{ opacity:1; transform:translateY(0); }
+
+/* ---------- FAQ accordion ---------- */
+.faq{ background:var(--fog); }
+.faq-list{ max-width:760px; margin:0 auto; }
+.faq-item{ border-bottom:1px solid var(--line); padding:20px 0; }
+.faq-question{ display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:15.5px; }
+.faq-question::after{ content:'+'; font-size:20px; color:var(--signal); transition:transform .2s ease; }
+.faq-item.open .faq-question::after{ transform:rotate(45deg); }
+.faq-answer{ max-height:0; overflow:hidden; transition:max-height .3s ease; font-size:14px; color:var(--steel-dark); line-height:1.6; }
+.faq-item.open .faq-answer{ max-height:240px; padding-top:12px; }
+
+/* ---------- Newsletter ---------- */
+.newsletter{ background:var(--navy-deep); color:var(--white); }
+.newsletter .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; }
+.newsletter h2{ color:var(--white); margin-bottom:8px; }
+.newsletter p{ color:var(--steel); font-size:14px; }
+#newsletter-form{ display:flex; gap:10px; flex-wrap:wrap; }
+#newsletter-email{
+  padding:13px 16px; border:1px solid var(--line); background:var(--navy); color:var(--white);
+  border-radius:2px; font-size:14px; min-width:240px;
+}
+#newsletter-form button{
+  background:var(--signal); color:var(--white); border:none; padding:13px 22px; border-radius:2px;
+  font-weight:600; font-size:13.5px; cursor:pointer;
+}
+
+/* ---------- Recently viewed ---------- */
+#recently-viewed .wrap > h2{ font-family:'Space Grotesk', sans-serif; font-size:22px; margin-bottom:24px; }
+.rv-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:16px; }
+.rv-card{ background:var(--white); border:1px solid var(--line); border-radius:4px; padding:14px; cursor:pointer; transition:transform .2s ease; }
+.rv-card:hover{ transform:translateY(-3px); }
+.rv-card img{ width:100%; height:80px; object-fit:contain; margin-bottom:10px; }
+.rv-name{ font-size:12.5px; font-weight:600; margin-bottom:4px; }
+.rv-price{ font-size:12px; color:var(--steel-dark); }
+
+/* ---------- Contact form validation ---------- */
+.field-error{ color:#F2A79B; font-size:12px; margin-top:6px; }
+.form-row input.invalid, .form-row select.invalid, .form-row textarea.invalid{ border-color:var(--signal); }
+
+/* ---------- Responsive: mobile nav + icons ---------- */
+@media (max-width:720px){
+  .nav-toggle{ display:block; }
+  .nav-links{
+    display:flex; flex-direction:column; position:absolute; top:72px; left:0; right:0;
+    background:var(--navy); padding:12px 24px 20px; gap:4px; max-height:0; overflow:hidden;
+    transition:max-height .25s ease; border-bottom:1px solid var(--line);
+  }
+  .nav-links.open{ max-height:400px; }
+  .nav-links a{ padding:12px 0; border-bottom:1px solid var(--line); }
+  #newsletter-form{ width:100%; }
+  #newsletter-email{ flex:1; min-width:0; }
+}
