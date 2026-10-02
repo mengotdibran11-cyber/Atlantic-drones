@@ -1,23 +1,10 @@
 /* ============================================================
    assets/css/app.css
    Styles for the new dynamic features (cart, wishlist, compare,
-   quick-view, lightbox, toasts, dark mode, search, FAQ, newsletter,
+   quick-view, lightbox, toasts, search, FAQ, newsletter,
    recently-viewed, back-to-top). The original design in index.html's
    <style> block is untouched -- this file only adds new UI.
    ============================================================ */
-
-/* ---------- Dark mode variables ---------- */
-:root[data-theme="dark"]{
-  --fog:#0E1620; --white:#132030; --navy:#EAF0F5; --steel-dark:#B7C3CC;
-  --line: rgba(201,209,217,0.14);
-}
-:root[data-theme="dark"] body{ background:var(--fog); color:var(--navy); }
-:root[data-theme="dark"] .fleet-card,
-:root[data-theme="dark"] .access-card,
-:root[data-theme="dark"] .service-card{ background:var(--white); color:var(--navy); }
-:root[data-theme="dark"] .services{ background:#0B131C; }
-:root[data-theme="dark"] .fleet-card h3,
-:root[data-theme="dark"] .access-card h4{ color:var(--navy); }
 
 /* ---------- Nav additions: hamburger, icons, search ---------- */
 .nav-toggle{
